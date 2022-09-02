@@ -1,6 +1,7 @@
 import Layout from "./layout/Layout";
-import Login from "./components/Login/Login";
+import Login from "./pages/Login/Login";
 import { Route, Routes } from 'react-router-dom';
+import Signup from "./pages/Signup/Signup";
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path='/' element={<Login />} />
-          <Route path='/signup' />
+          <Route path='/signup' element={<Signup />} />
           <Route path='/main' />
         </Routes>
       </Layout>
