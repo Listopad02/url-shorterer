@@ -2,28 +2,39 @@ import React, { useState } from 'react'
 import './Login.css'
 import { NavLink } from 'react-router-dom'
 import api from '../../utils/api'
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+
+  let formData = {
+    grant_type: "",
+    username: login,
+    password: password,
+    scope: "",
+    client_id: "",
+    client_secret: ""
+  };
+
+  const encodeFormData = (data) => {
+    return Object.keys(data).map(key => 
+      encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
+    ).join("&");
+  };
 
   async function logIn() {
     try {
-      await api("/login", {
-        method: "GET",
+      const response = await api("/login", {
+        method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify({
-          grant_type: '',
-          username: login,
-          password: password,
-          scope: '',
-          client_id: '',
-          client_secret: ''
-        })
+        body: encodeFormData(formData)
       })
+      localStorage.setItem("access_token", response.access_token)
     } catch (err) {
       console.log(err)
     }
