@@ -35,6 +35,9 @@ const Login = () => {
         body: encodeFormData(formData)
       })
       localStorage.setItem("access_token", response.access_token)
+      if (localStorage.getItem("access_token") !== 'undefined') {
+        navigate("/service")
+      }
     } catch (err) {
       console.log(err)
     }

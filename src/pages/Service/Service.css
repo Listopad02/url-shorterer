@@ -35,13 +35,13 @@
     border-radius: 5px;
     width: 100%;
     height: 30px;
+    padding-left: 10px;
 }
 .service-forms__input:first-child {
     margin-bottom: 10px;
 }
 .service-forms__input::placeholder {
     font-size: 14px;
-    padding-left: 10px;
 }
 .service-forms__input:focus {
     outline: none;

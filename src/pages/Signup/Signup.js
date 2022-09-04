@@ -2,21 +2,22 @@ import React, { useState } from 'react'
 import './Signup.css'
 import api from '../../utils/api'
 import { NavLink } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   async function signUp() {
     try {
-      const response = await api(`/register?username=${login}&password=${password}`, {
+      await api(`/register?username=${login}&password=${password}`, {
         method: "POST",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
         },
       })
-      localStorage.setItem("access_token", response.access_token);
     } catch (err) {
       console.log(err)
     }
