@@ -13,7 +13,6 @@
 }
 .service-title {
     color: #20454A;
-    margin-bottom: 50px;
 }
 .service-title__header {
     font-size: 32px;
@@ -57,4 +56,16 @@
     background-color: #456443;
     color: #fff;
     margin-bottom: 10px;
+}
+.service-info__text {
+    color: #20454A;
+    font-size: 16px;
+    font-weight: 700;
+}
+.service-info__link {
+    color: #20454A;
+}
+.login-options__text {
+    font-size: 11px;
+    text-align: center;
 }

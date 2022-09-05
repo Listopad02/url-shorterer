@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
+import Table from '../../components/Table/Table';
 import { useNavigate } from "react-router-dom";
 import api from '../../utils/api'
 
 const Statistics = () => {
   const navigate = useNavigate()
+
   useEffect(() => {
     if (!localStorage.getItem("access_token")) {
       navigate("/")
@@ -26,10 +28,9 @@ const Statistics = () => {
     }
 
   return (
-    <>
-    <div>Statistics</div>
-    <button onClick={() => getStatistics()}>click</button>
-    </>
+    <div className='statistics'>
+      <Table />
+    </div>
   )
 }
 
