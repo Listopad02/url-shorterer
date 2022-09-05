@@ -1,10 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
 import api from '../../utils/api'
 import './Service.css'
 
 const Service = () => {
     const [link, setLink] = useState('')
     const [shortLink, setShortLink] = useState('')
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!localStorage.getItem("access_token")) {
+          navigate("/")
+        }
+    })
 
     async function createShortLink() {
         try {
