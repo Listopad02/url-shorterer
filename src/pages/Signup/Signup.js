@@ -11,13 +11,16 @@ const Signup = () => {
 
   async function signUp() {
     try {
-      await api(`/register?username=${login}&password=${password}`, {
+      const response = await api(`/register?username=${login}&password=${password}`, {
         method: "POST",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
         },
       })
+      if (!response.detail) {
+        navigate("/")
+      }
     } catch (err) {
       console.log(err)
     }
