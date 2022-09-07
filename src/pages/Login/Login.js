@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Login.css'
 import { NavLink } from 'react-router-dom'
 import api from '../../utils/api'
@@ -8,6 +8,10 @@ const Login = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
+
+  useEffect(() => {
+    localStorage.removeItem('access_token')
+  })
 
   let formData = {
     grant_type: "",

@@ -57,6 +57,12 @@
     color: #fff;
     margin-bottom: 10px;
 }
+.service-forms__button:hover {
+    background-color: #395337;
+}
+.service-forms__button:active {
+    background-color: #283b27;
+}
 .service-info__text {
     color: #20454A;
     font-size: 16px;

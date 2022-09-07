@@ -1,86 +1,89 @@
 import React, { useMemo } from 'react'
-import { useTable } from 'react-table'
+import {useTable, useSortBy} from 'react-table'
+import { Styles } from './TableStyle'
+import Pagination from "../Pagination/Pagination";
 
-const Table = () => {
-    const data = useMemo(() => [
-        {
-            col1: 'Hello',
-            col2: 'World'
-        },
-        {
-            col1: 'React',
-            col2: 'Table'
-        },
-        {
-            col1: 'Whatever',
-            col2: 'You want'
-        }
-    ])
+const Table = ({result, setOffset}) => {
+    const columns = React.useMemo(
+        () => [
+            {
+                Header: 'Short link',
+                accessor: 'short',
+                canSort: false
+            },
+            {
+                Header: 'Original link',
+                accessor: 'target',
+            },
+            {
+                Header: 'Counter',
+                accessor: 'counter',
+            },
+        ],
+        []
+    )
 
-    const columns = useMemo(() => [
-        {
-            Header: 'Column 1',
-            accessor: 'col1',
-        },
-        {
-            Header: 'Column 2',
-            accessor: 'col2',
-        },
-    ])
+    const data = useMemo(() => result, [result])
 
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
-        rows,
         prepareRow,
-    } = useTable({ columns, data })
+        rows,
+    } = useTable(
+        {
+            columns,
+            data,
+            initialState: { pageIndex: 2 },
+        },
+        useSortBy
+    )
 
     return (
-        <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
-          <thead>
-            {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                  <th
-                    {...column.getHeaderProps()}
-                      style={{
-                        borderBottom: 'solid 3px red',
-                        background: 'aliceblue',
-                        color: 'black',
-                        fontWeight: 'bold',
-                    }}
-                  >
-                    {column.render('Header')}
-                  </th>
+        <Styles>
+            <table {...getTableProps()}>
+                <thead>
+                {headerGroups.map(headerGroup => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map(column => (
+                            <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                {column.render('Header')}
+                                <span>
+                                {column.isSorted
+                                    ? column.isSortedDesc
+                                        ? ' 🔽'
+                                        : ' 🔼'
+                                    : ''}
+                              </span>
+                            </th>
+                        ))}
+                    </tr>
                 ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
-              prepareRow(row)
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map(cell => {
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                {rows.map((row, i) => {
+                    prepareRow(row)
                     return (
-                      <td
-                        {...cell.getCellProps()}
-                        style={{
-                          padding: '10px',
-                          border: 'solid 1px gray',
-                          background: 'papayawhip',
-                        }}
-                      >
-                        {cell.render('Cell')}
-                      </td>
+                        <tr {...row.getRowProps()}>
+                            {row.cells.map(cell => {
+                                return  <td {...cell.getCellProps()}>
+                                            {
+                                                cell.column.id !== 'counter' ?
+                                                    <a href={cell.value} rel="noreferrer" target="_blank">{cell.render('Cell')}</a> :
+                                                    cell.render('Cell')
+                                            }
+                                        </td>
+                            })}
+                        </tr>
                     )
-                  })}
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+                })}
+                </tbody>
+            </table>
+            <div>
+                <Pagination setOffset={setOffset} data={result} />
+            </div>
+        </Styles>
     )
 }
 

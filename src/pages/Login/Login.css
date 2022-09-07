@@ -54,6 +54,13 @@
     border-radius: 5px;
     background-color: #456443;
     color: #fff;
+    cursor: pointer;
+}
+.login-options__button:hover {
+    background-color: #395337;
+}
+.login-options__button:active {
+    background-color: #283b27;
 }
 .login-options__text {
     font-size: 11px;

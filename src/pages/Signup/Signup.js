@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Signup.css'
 import api from '../../utils/api'
 import { NavLink } from 'react-router-dom'
@@ -8,6 +8,10 @@ const Signup = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
+
+  useEffect(() => {
+    localStorage.removeItem('access_token')
+  })
 
   async function signUp() {
     try {
