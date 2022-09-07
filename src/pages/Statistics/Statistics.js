@@ -38,7 +38,7 @@ const Statistics = () => {
         getStatistics().then(data => {
           if (!ignore) {
               setResult(data.map(item => {
-                  item.short = 'http://79.143.31.216/' + item.short
+                  item.short = 'http://79.143.31.216/s/' + item.short
                   return item
               }))
           }
