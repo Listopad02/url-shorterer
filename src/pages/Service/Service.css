@@ -24,6 +24,9 @@
 .service-forms {
     color: #20454A;
 }
+.service-forms__container {
+    max-width: 354.13px;
+}
 .service-forms__name {
     font-size: 13px;
     font-weight: 700;
@@ -33,6 +36,7 @@
     border: 1px solid #20454A;
     border-radius: 5px;
     width: 100%;
+    max-width: 367.13px;
     height: 30px;
     padding-left: 10px;
 }
@@ -61,6 +65,25 @@
     background-color: #395337;
 }
 .service-forms__button:active {
+    background-color: #283b27;
+}
+.service-forms__copy {
+    display: flex;
+    position: relative;
+}
+.service-forms__copy-button {
+    position: absolute;
+    right: 0;
+    background-color: #456443;
+    color: #fff;
+    height: 34px;
+    border: 1px solid #20454A;
+    border-radius: 0 5px 5px 0;
+}
+.service-forms__copy-button:hover {
+    background-color: #395337;
+}
+.service-forms__copy-button:active {
     background-color: #283b27;
 }
 .service-info__text {
