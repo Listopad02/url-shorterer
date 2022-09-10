@@ -3,11 +3,18 @@ import './Login.css'
 import { NavLink } from 'react-router-dom'
 import api from '../../utils/api'
 import { useNavigate } from "react-router-dom";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 const Login = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
+  const [open, setOpen] = useState(false)
   const navigate = useNavigate()
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+      return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
   useEffect(() => {
     localStorage.removeItem('access_token')
@@ -28,6 +35,13 @@ const Login = () => {
     ).join("&");
   };
 
+  const handleClose = (reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   async function logIn() {
     try {
       const response = await api("/login", {
@@ -41,6 +55,8 @@ const Login = () => {
       localStorage.setItem("access_token", response.access_token)
       if (localStorage.getItem("access_token") !== 'undefined') {
         navigate("/service")
+      } else {
+        setOpen(true)
       }
     } catch (err) {
       console.log(err)
@@ -77,6 +93,11 @@ const Login = () => {
               <span className='link'>Sign up</span></NavLink>
           </p>
         </div>
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert severity='error' sx={{ width: '100%' }}>
+            Please, check your data again!
+          </Alert>
+        </Snackbar>
       </div>
     </div>
   )

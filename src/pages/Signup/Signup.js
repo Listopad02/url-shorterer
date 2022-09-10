@@ -3,11 +3,18 @@ import './Signup.css'
 import api from '../../utils/api'
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 const Signup = () => {
   const [login, setLogin] = useState('')
+  const [open, setOpen] = useState(false)
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
   useEffect(() => {
     localStorage.removeItem('access_token')
@@ -24,11 +31,20 @@ const Signup = () => {
       })
       if (!response.detail) {
         navigate("/")
+      } else {
+        setOpen(true)
       }
     } catch (err) {
       console.log(err)
     }
   }
+
+  const handleClose = (reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   return (
     <div className='login'>
@@ -62,6 +78,11 @@ const Signup = () => {
               <span className='link'>Sign in</span></NavLink>
           </p>
         </div>
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert severity='error' sx={{ width: '100%' }}>
+            Please, check your data again!
+          </Alert>
+        </Snackbar>
       </div>
     </div>
   )
