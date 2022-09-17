@@ -91,7 +91,7 @@
     font-size: 16px;
     font-weight: 700;
 }
-.service-info__link {
+.service-info__navLink, .service-info__link {
     color: #20454A;
 }
 .login-options__text {

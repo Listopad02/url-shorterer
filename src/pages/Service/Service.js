@@ -70,7 +70,7 @@ const Service = () => {
                 </div>
                 <div className='service-info'>
                     <p className='service-info__text'>
-                        You can see your full profile statistics <NavLink to={'/statistics'}><span className='service-info__link'>here</span></NavLink>.
+                        You can see your full profile statistics <NavLink to={'/statistics'} className='service-info__navLink'><span className='service-info__link'>here</span></NavLink>.
                     </p>
                 </div>
                 <div className="service-forms">
